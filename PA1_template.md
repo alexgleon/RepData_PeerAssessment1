@@ -100,5 +100,6 @@ Oliver gonzalez
       facet_wrap(~weektype, ncol = 1, nrow=2)
     graph2
 ```
+On weekends, there is a steady number of steps throughout the day, on weekdays on the other hand, there is a spike in number of steps early in the day, then ther is a decrease of steps in the rest of the day
 ![patterns](instructions_fig/Graph4.png) 
  
