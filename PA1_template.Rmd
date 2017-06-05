@@ -1,5 +1,6 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
+author: Oliver Gonzalez
 output: 
   html_document:
     keep_md: true
@@ -7,12 +8,28 @@ output:
 
 
 ## Loading and preprocessing the data
-
+```{r}
+unzip("activity.zip")
+activity <- read.csv("activity.csv",header = TRUE, sep=',')
+activity$date<-ymd(activity$date)
+str(activity)
+steps_day<- activity %>%
+    filter(!is.na(steps)) %>%
+    group_by(date) %>%
+    summarize(dly_steps = sum(steps)) %>%
+```
 
 
 ## What is mean total number of steps taken per day?
-
-
+```{r}
+graph1<-ggplot(steps_day,aes(x=dly_steps))+geom_histogram( boundary=0,col="darkblue",fill="darkgreen",binwidth = 1200) +
+  labs(title = "Histogram of Steps per day", x = "Steps per day", y = "Frequency")+scale_x_continuous(breaks=seq(0,25000,2500))+scale_y_continuous(breaks=seq(0,26,2))
+graph1
+mean_steps <- mean(steps_day$dly_steps, na.rm = TRUE)
+median_steps <- median(steps_day$dly_steps, na.rm = TRUE)
+mean_steps
+median_steps
+```
 
 ## What is the average daily activity pattern?
 
