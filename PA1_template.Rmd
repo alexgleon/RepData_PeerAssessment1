@@ -33,8 +33,8 @@ output:
 3)Calculate the mean and median of the total number of steps taken per day:
   mean_steps <- mean(steps_day$dly_steps, na.rm = TRUE)
   median_steps <- median(steps_day$dly_steps, na.rm = TRUE)
-```
-
+``` 
+ 
 ## What is the average daily activity pattern?
 ```{r}
 1)Calculate the average number of steps taken in each 5-minute interval per day and group by interval:
