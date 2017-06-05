@@ -9,27 +9,32 @@ output:
 
 ## Loading and preprocessing the data
 ```{r}
+Load the data
 unzip("activity.zip")
 activity <- read.csv("activity.csv",header = TRUE, sep=',')
+
+Process/transform the data (if necessary) into a format suitable for your analysis
 activity$date<-ymd(activity$date)
 str(activity)
+head(activity)
+```
+## What is mean total number of steps taken per day?
+```{r}
+###Calculate the total number of steps per day and group by date:
 steps_day<- activity %>%
     filter(!is.na(steps)) %>%
     group_by(date) %>%
     summarize(dly_steps = sum(steps)) %>%
-```
-
-
-## What is mean total number of steps taken per day?
-```{r}
+    
+###Using ggplot for making hystogram    
 graph1<-ggplot(steps_day,aes(x=dly_steps))+geom_histogram( boundary=0,col="darkblue",fill="darkgreen",binwidth = 1200) +
   labs(title = "Histogram of Steps per day", x = "Steps per day", y = "Frequency")+scale_x_continuous(breaks=seq(0,25000,2500))+scale_y_continuous(breaks=seq(0,26,2))
-graph1
+ 
+###Calculate the mean and median of the total number of steps taken per day:
 mean_steps <- mean(steps_day$dly_steps, na.rm = TRUE)
 median_steps <- median(steps_day$dly_steps, na.rm = TRUE)
 mean_steps
 median_steps
-plot(graph1)
 ```
 
 ## What is the average daily activity pattern?
