@@ -10,37 +10,45 @@ output:
 ## Loading and preprocessing the data
 ```{r}
 1)Load the data
-unzip("activity.zip")
-activity <- read.csv("activity.csv",header = TRUE, sep=',')
+  unzip("activity.zip")
+  activity <- read.csv("activity.csv",header = TRUE, sep=',')
 
 2)Process/transform the data (if necessary) into a format suitable for your analysis
-activity$date<-ymd(activity$date)
-str(activity)
-head(activity)
+  activity$date<-ymd(activity$date)
+  str(activity)
+  head(activity)
 ```
 ## What is mean total number of steps taken per day?
 ```{r}
 1)Calculate the total number of steps per day and group by date:
-steps_day<- activity %>%
-    filter(!is.na(steps)) %>%
-    group_by(date) %>%
-    summarize(dly_steps = sum(steps)) %>%
+  steps_day<- activity %>%
+      filter(!is.na(steps)) %>%
+      group_by(date) %>%
+      summarize(dly_steps = sum(steps)) %>%
     
 2)Using ggplot for making hystogram    
-graph1<-ggplot(steps_day,aes(x=dly_steps))+geom_histogram( boundary=0,col="darkblue",fill="darkgreen",binwidth = 1200) +
-  labs(title = "Histogram of Steps per day", x = "Steps per day", y = "Frequency")+scale_x_continuous(breaks=seq(0,25000,2500))+scale_y_continuous(breaks=seq(0,26,2))
+    graph1<-ggplot(steps_day,aes(x=dly_steps))+geom_histogram( boundary=0,col="darkblue",fill="darkgreen",binwidth = 1200) +
+      labs(title = "Histogram of Steps per day", x = "Steps per day", y =        "Frequency")+scale_x_continuous(breaks=seq(0,25000,2500))+scale_y_continuous(breaks=seq(0,26,2))
  
 3)Calculate the mean and median of the total number of steps taken per day:
-mean_steps <- mean(steps_day$dly_steps, na.rm = TRUE)
-median_steps <- median(steps_day$dly_steps, na.rm = TRUE)
+  mean_steps <- mean(steps_day$dly_steps, na.rm = TRUE)
+  median_steps <- median(steps_day$dly_steps, na.rm = TRUE)
 ```
 
 ## What is the average daily activity pattern?
-
-
-
+1)Calculate the average number of steps taken in each 5-minute interval per day and group by interval:
+  interval <- activity %>%
+    filter(!is.na(steps)) %>%
+    group_by(interval) %>%
+    summarize(steps_interval = mean(steps))
+  using ggplot for making the time series of the 5-minute interval, and the avergae of steps
+  ggplot(interval, aes(x=interval, y=steps_interval)) +
+  geom_line(color = "firebrick")
+ 2)Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
+    interval[which.max(interval$steps),]
+    
 ## Imputing missing values
-
-
+1)Calculate and report the total number of missing values in the dataset (i.e. the total number of rows with NAs)
+  sum(is.na(activity$steps))
 
 ## Are there differences in activity patterns between weekdays and weekends?
