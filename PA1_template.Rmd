@@ -29,6 +29,7 @@ mean_steps <- mean(steps_day$dly_steps, na.rm = TRUE)
 median_steps <- median(steps_day$dly_steps, na.rm = TRUE)
 mean_steps
 median_steps
+plot(graph1)
 ```
 
 ## What is the average daily activity pattern?
