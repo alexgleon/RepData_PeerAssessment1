@@ -103,3 +103,4 @@ output:
       facet_wrap(~weektype, ncol = 1, nrow=2)
     graph2
 ```
+ 
