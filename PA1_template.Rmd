@@ -82,6 +82,24 @@ output:
       
       mean_steps_full <- mean(steps_full$steps_complete, na.rm = TRUE)
       median_steps_full <- median(steps_full$steps_complete, na.rm = TRUE)
+
+      ##The main difference is that Watching the histogram we can take note tha the change is in the interval between 10000 and 12500         ##steps, grown from a frequency of 12 to a frequency of 20            
 ```
 
 ## Are there differences in activity patterns between weekdays and weekends?
+```{r}  
+1)Create a new factor variable in the dataset with two levels – “weekday” and “weekend” indicating whether a given date is a weekday or weekend day.
+    activity_full <- mutate(activity_full, weektype = ifelse(weekdays(activity_full$date) == "Saturday" | weekdays(activity_full$date)       == "Sunday", "weekend", "weekday"))
+    activity_full$weektype <- as.factor(activity_full$weektype)
+    head(activity_full)
+
+    interval_5min <- activity_full %>%
+      group_by(interval, weektype) %>%
+      summarise(steps = mean(steps))
+      
+2) Make a panel plot containing a time series plot
+    graph2 <- ggplot(interval_5min, aes(x=interval, y=steps, color = weektype)) +
+      geom_line() +
+      facet_wrap(~weektype, ncol = 1, nrow=2)
+    graph2
+```
