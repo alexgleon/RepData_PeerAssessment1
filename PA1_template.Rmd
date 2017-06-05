@@ -50,6 +50,7 @@ output:
  2)Which 5-minute interval, on average across all the days in the dataset, contains the maximum number of steps?
     interval[which.max(interval$steps),]
 ```
+![daily activity](instructions_fig/graph2.png) 
 
 ## Imputing missing values
 ```{r}  
@@ -86,6 +87,7 @@ output:
 
       ##The main difference is that Watching the histogram we can take note tha the change is in the interval between 10000 and 12500         ##steps, grown from a frequency of 12 to a frequency of 20            
 ```
+![including missing val](instructions_fig/Graph3.png) 
 
 ## Are there differences in activity patterns between weekdays and weekends?
 ```{r}  
@@ -104,4 +106,5 @@ output:
       facet_wrap(~weektype, ncol = 1, nrow=2)
     graph2
 ```
+![patterns](instructions_fig/Graph4.png) 
  
